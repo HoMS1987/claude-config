@@ -1,0 +1,7 @@
+# Sicherheitsnetz: Diese Dateien gehören nie in dieses Repository
+.credentials.json
+.claude.json
+*.local.json
+history.jsonl
+projects/
+*.bak-*
