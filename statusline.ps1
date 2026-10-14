@@ -19,7 +19,8 @@ if ($shown.Length -gt 40) {
 $out = "$e[36m$shown$reset"
 
 # Git-Branch (nur innerhalb eines Repositories)
-$status = git -C $dir status --porcelain=v2 --branch 2>$null
+# --no-optional-locks: kein index.lock, sonst bleibt beim Abbruch der Statusleiste eine verwaiste Sperre liegen
+$status = git --no-optional-locks -C $dir status --porcelain=v2 --branch 2>$null
 if ($status) {
     $branch = $null; $oid = $null; $ahead = 0; $behind = 0; $dirty = $false
     foreach ($line in $status) {
