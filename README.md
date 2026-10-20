@@ -24,6 +24,7 @@ Claude Code lädt jede Datei aus `~/.claude/rules/` in jedem Projekt. Dateien mi
 | `adler-communication-style.md` | Ton für Texte, die andere lesen (PRs, Issues, Doku) |
 | `utf8-umlaut-handling.md` | Umlaute immer direkt schreiben, nie automatisch ersetzen |
 | `commit-conventions.md` | `[TYPE] [#Issue] Beschreibung`, Branch-Namen, Squash-Merge |
+| `git-identity.md` | Identität pro Repository, nie Klarname oder private Adresse aus der globalen Git-Konfiguration |
 | `pull-requests.md` | PRs gegen `dev`, Beschreibung über den ganzen Branch |
 | `subagent-tool-discipline.md` | Sub-Agents vorhandene Skills und Tools nennen |
 | `documentation-standards.md` | Markdown- und Doku-Konventionen (nur `*.md`, `docs/`) |
