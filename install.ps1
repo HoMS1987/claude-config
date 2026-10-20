@@ -12,16 +12,28 @@ $ErrorActionPreference = 'Stop'
 
 $repo = $PSScriptRoot
 $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
+
+# Schutz für Rechner, deren Konfiguration dieses Skript nie anfassen soll
+$marker = Join-Path $ClaudeDir '.no-claude-config-install'
+if (Test-Path $marker) {
+    Write-Host "Abbruch: $marker existiert. Auf diesem Rechner wird nichts installiert."
+    exit 1
+}
+
 New-Item -ItemType Directory -Force $ClaudeDir | Out-Null
 $ClaudeDir = (Resolve-Path $ClaudeDir).Path
+New-Item -ItemType Directory -Force (Join-Path $ClaudeDir 'rules') | Out-Null
 
 function Backup-File($path) {
     Copy-Item $path "$path.bak-$stamp"
     Write-Host "  Sicherung: $path.bak-$stamp"
 }
 
-# Dateien, die 1:1 kopiert werden
-foreach ($name in 'CLAUDE.md', 'statusline.ps1') {
+# Dateien, die 1:1 kopiert werden. Regeln in ~/.claude/rules, die nicht aus diesem
+# Repository stammen, bleiben unberührt.
+$files = @('CLAUDE.md', 'statusline.ps1') +
+    (Get-ChildItem (Join-Path $repo 'rules') -Filter '*.md' | ForEach-Object { "rules/$($_.Name)" })
+foreach ($name in $files) {
     $src = Join-Path $repo $name
     $dst = Join-Path $ClaudeDir $name
     if (Test-Path $dst) {

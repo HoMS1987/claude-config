@@ -7,9 +7,28 @@ Persönliche Konfiguration für [Claude Code](https://claude.com/claude-code) un
 | Datei | Zweck |
 |-------|-------|
 | `CLAUDE.md` | Globale Regeln, die in jedem Projekt gelten (auf Deutsch) |
+| `rules/` | Weitere Regeln, je Thema eine Datei (siehe unten) |
 | `settings.json` | Einstellungen und aktivierte Plugins |
 | `statusline.ps1` | Statusleiste |
 | `install.ps1` | Installiert alles nach `~/.claude` |
+
+## Regeln
+
+Claude Code lädt jede Datei aus `~/.claude/rules/` in jedem Projekt. Dateien mit `paths:` im Kopf gelten nur für passende Dateien.
+
+| Datei | Inhalt |
+|-------|--------|
+| `destructive-actions-confirmation.md` | Vor Löschen, `git reset --hard`, Force-Push usw. immer nachfragen |
+| `bugfix-tdd-first.md` | Bugfix nur mit 5-Why-Analyse und zuerst rotem Test |
+| `adr-architecture-decisions.md` | Architekturentscheidungen als ADR in `docs/adrs/` |
+| `adler-communication-style.md` | Ton für Texte, die andere lesen (PRs, Issues, Doku) |
+| `utf8-umlaut-handling.md` | Umlaute immer direkt schreiben, nie automatisch ersetzen |
+| `commit-conventions.md` | `[TYPE] [#Issue] Beschreibung`, Branch-Namen, Squash-Merge |
+| `pull-requests.md` | PRs gegen `dev`, Beschreibung über den ganzen Branch |
+| `subagent-tool-discipline.md` | Sub-Agents vorhandene Skills und Tools nennen |
+| `documentation-standards.md` | Markdown- und Doku-Konventionen (nur `*.md`, `docs/`) |
+| `dotnet-csharp-conventions.md` | C#-Sprachfeatures, Test-Stack (nur `*.cs`, `*.csproj`, `*.sln`) |
+| `dotnet-core-principles.md` | SOLID, Clean Architecture, TDD, Review-Checkliste (nur .NET-Dateien) |
 
 ## Statusleiste
 
@@ -39,7 +58,8 @@ cd claude-config
 
 Das Skript
 
-- kopiert `CLAUDE.md` und `statusline.ps1` nach `~/.claude`,
+- bricht sofort ab, wenn `~/.claude/.no-claude-config-install` existiert (siehe unten),
+- kopiert `CLAUDE.md` und `statusline.ps1` nach `~/.claude` und die Regeln nach `~/.claude/rules`,
 - mischt die Schlüssel aus `settings.json` in die vorhandene `~/.claude/settings.json` ein (Werte aus dem Repository gewinnen, alle übrigen Einstellungen bleiben erhalten),
 - fragt, ob der Warnhinweis beim Start des Modus „bypass permissions“ dauerhaft übersprungen werden soll (`skipDangerousModePermissionPrompt`),
 - sichert jede Datei, die es ändert, vorher als `*.bak-<Zeitstempel>`.
@@ -54,5 +74,11 @@ Es kann beliebig oft ausgeführt werden.
 ## Hinweise
 
 - `CLAUDE.md` überschreibt eine vorhandene Datei gleichen Namens (nach Sicherung). Wer eigene Regeln hat, sollte die Inhalte von Hand zusammenführen.
+- In `~/.claude/rules` werden nur gleichnamige Dateien ersetzt (nach Sicherung). Andere Regeln dort bleiben unberührt.
+- Rechner, deren Konfiguration das Skript nie anfassen soll, bekommen eine leere Datei `~/.claude/.no-claude-config-install`. Dann bricht das Skript ab, bevor es etwas ändert:
+
+  ```powershell
+  New-Item -ItemType File ~/.claude/.no-claude-config-install
+  ```
 - Die Plugins in `settings.json` stammen aus dem offiziellen Marketplace und werden von Claude Code beim nächsten Start nachgeladen.
 - Das Repository enthält bewusst keine Anmeldedaten, Gesprächsverläufe oder Memory-Dateien.
