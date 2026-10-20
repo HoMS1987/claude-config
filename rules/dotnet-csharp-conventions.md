@@ -99,6 +99,12 @@ Testprojekt (Paketversionen: jeweils aktuelle stabile):
     <PackageReference Include="AwesomeAssertions" Version="…" />
     <PackageReference Include="NSubstitute" Version="…" />
     <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="…" />
+    <!-- VSTest-Kompatibilität für IDEs ohne MTP-Unterstützung, siehe unten -->
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="…" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="…">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>
 ```
@@ -110,10 +116,16 @@ Testprojekt (Paketversionen: jeweils aktuelle stabile):
 | Testfilter | `dotnet test --filter-class "*FooTests"`, `--filter-method`, `--filter-trait` | `--filter "ClassName=…"` (VSTest-Syntax → 0 Tests, Exit-Code 8) |
 | Coverage | `dotnet test --coverage --coverage-output-format cobertura` mit `Microsoft.Testing.Extensions.CodeCoverage` | `--collect "XPlat Code Coverage"` mit `coverlet.collector` (Exit-Code 5) |
 
-`Microsoft.NET.Test.Sdk`, `xunit.runner.visualstudio` und `coverlet.collector`
-sind VSTest-Pakete und für `dotnet test` unter MTP nicht nötig. Ohne
-`Microsoft.NET.Test.Sdk` muss `<OutputType>Exe</OutputType>` explizit gesetzt
-werden.
+**`coverlet.collector`** ist ein VSTest-Datensammler und unter MTP wirkungslos —
+nicht verwenden.
+
+**`Microsoft.NET.Test.Sdk` und `xunit.runner.visualstudio`** braucht nur der
+VSTest-Modus. `dotnet test` unter MTP läuft nachweislich ohne sie; der Visual
+Studio Test Explorer nutzt für xUnit-v3-Projekte laut xUnit-Doku automatisch MTP. Trotzdem **behalten**, wie es die xUnit-Doku empfiehlt, solange
+nicht sicher ist, dass alle IDEs im Team (z.B. Rider, ältere Visual-Studio-Versionen)
+MTP verwenden — sonst zeigen diese keine Tests an. Wer sie entfernt, muss
+`<OutputType>Exe</OutputType>` explizit setzen (bleibt im Template ohnehin gesetzt).
+Quelle: https://xunit.net/docs/getting-started/v3/microsoft-testing-platform
 
 ## Code-Qualität
 
