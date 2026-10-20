@@ -402,15 +402,27 @@ _logger.LogInformation(
 
 ## 9. Debugging
 
-### 9.1 Debugging mit C# Language Server (Ausblick)
+### 9.1 Code-Navigation mit dem C# Language Server
 
-**Ausblick, noch nicht Standard:** Ab **.NET 10** wird ein offizieller
-C# Language Server (LSP) verfügbar, der auch in Terminal-Workflows
-nutzbar ist. Sobald die Tooling-Integration in Claude-Code-Workflows
-stabil ist, werden Symbol-Suche, Go-to-Definition, Find References und
-strukturierte Diagnostics über LSP statt `grep`/`dotnet build`-Output
-bevorzugt. Bis dahin: aktuelle Werkzeuge (`grep`, `Explore`-Agent,
-`dotnet build`-Output) bleiben Standard.
+Ist das `LSP`-Tool verfügbar (Plugin `csharp-lsp`), wird es für die
+Navigation in C#-Code bevorzugt:
+
+- **Go-to-Definition** und **Find References** statt Textsuche nach dem
+  Symbolnamen — LSP unterscheidet gleichnamige Symbole, Überladungen und
+  Namespaces, `grep` nicht
+- **Hover/Typinformation**, um Typen und Signaturen zu prüfen, ohne die
+  Datei komplett zu lesen
+- **Diagnostics** nach Änderungen für schnelles Feedback zu
+  Compiler-Fehlern und Warnungen
+
+`grep` bleibt sinnvoll für Text, den LSP nicht kennt: Strings,
+Kommentare, Konfigurationsdateien, Projekt- und Build-Dateien.
+Maßgeblich für „kompiliert“ und „Tests grün“ bleiben `dotnet build` und
+`dotnet test` — LSP-Diagnostics ersetzen sie nicht.
+
+Ist das Tool nicht verfügbar oder liefert es keine Ergebnisse (z.B.
+Projekt noch nicht geladen), auf `grep` und den `dotnet build`-Output
+zurückfallen.
 
 ### 9.2 Bugfix-Methodik und Root-Cause-Analyse
 
