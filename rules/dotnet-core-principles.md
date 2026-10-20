@@ -118,13 +118,10 @@ TDD gilt für **alle** Feature-Arbeiten, nicht nur für Bugfixes.
 **Commit-Disziplin:** Test + Implementierung gehören in **denselben** Commit.
 Kein Feature ohne Test. Kein Test ohne Rot-Phase (sonst beweist er nichts).
 
-**Test-Framework-Stack:**
+**Test-Framework-Stack:** xUnit v3 auf Microsoft.Testing.Platform,
+AwesomeAssertions, NSubstitute — Details und Projekt-Aufbau siehe
+`dotnet-csharp-conventions.md` (Abschnitt Testing).
 
-- **xUnit** als Test-Framework
-- **FluentAssertions 7.x** für Assertions (`.Should().Be(...)`)
-  — **NICHT 8.0+** (kommerzielle Lizenz ab 8.0)
-- **NSubstitute** für Mocks (keine Moq)
-- **AutoFixture + AutoNSubstitute** für Test-Daten und Mock-Composition
 - Coverage-Ziele: Services ≥ 90 %, Integration Tests ≥ 80 %
 
 **Anti-Pattern:** `Console.WriteLine`-"Tests" ohne Assertions, manuelle

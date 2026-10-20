@@ -62,12 +62,58 @@ Beim Arbeiten mit aktuellem C# und .NET **MÜSSEN** moderne Sprachfeatures verwe
 
 ## Testing
 
-- **xUnit** als Test-Framework
-- **FluentAssertions 7.x** (NICHT 8.0+ — kommerzielle Lizenz!)
+- **xUnit v3** auf der **Microsoft.Testing.Platform (MTP)**, nicht VSTest
+- **AwesomeAssertions** für Assertions (`.Should()`) — Apache-2.0-Fork von
+  FluentAssertions 7. **Nicht FluentAssertions 8+** (kommerzielle Lizenz)
 - **NSubstitute** statt Moq
-- **AutoFixture + AutoNSubstitute** für Test-Daten
+- **AutoFixture** für Test-Daten, wo es Aufbau-Code spart — kein Pflicht-Paket
 - **Async-Testing**: IMMER `async Task`, nie `async void`; `Task.FromResult()` für NSubstitute; `IAsyncLifetime` für Setup/Teardown
 - Niemals `.Result` oder `GetAwaiter().GetResult()` (Deadlock-Gefahr)
+
+### Testprojekt-Aufbau
+
+Ein Testprojekt pro Solution (`<Projekt>.Test`), Dateien `<KlasseUnterTest>Tests.cs`,
+Methoden `Methode_Bedingung_ErwartetesErgebnis`. Internes wird über
+`InternalsVisibleTo` im Produktivprojekt freigegeben, nicht `public` gemacht.
+
+`global.json` im Repository-Root schaltet `dotnet test` auf MTP um:
+
+```json
+{
+  "test": { "runner": "Microsoft.Testing.Platform" }
+}
+```
+
+Testprojekt (Paketversionen: jeweils aktuelle stabile):
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework> <!-- aktuelle LTS -->
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType> <!-- xUnit v3 verlangt ein ausführbares Testprojekt -->
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" Version="…" />
+    <PackageReference Include="AwesomeAssertions" Version="…" />
+    <PackageReference Include="NSubstitute" Version="…" />
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="…" />
+  </ItemGroup>
+</Project>
+```
+
+**Unter MTP gilt (geprüft mit .NET SDK 10.0.4xx und xunit.v3 4.0):**
+
+| Aufgabe | Richtig | Funktioniert NICHT |
+|---------|---------|--------------------|
+| Testfilter | `dotnet test --filter-class "*FooTests"`, `--filter-method`, `--filter-trait` | `--filter "ClassName=…"` (VSTest-Syntax → 0 Tests, Exit-Code 8) |
+| Coverage | `dotnet test --coverage --coverage-output-format cobertura` mit `Microsoft.Testing.Extensions.CodeCoverage` | `--collect "XPlat Code Coverage"` mit `coverlet.collector` (Exit-Code 5) |
+
+`Microsoft.NET.Test.Sdk`, `xunit.runner.visualstudio` und `coverlet.collector`
+sind VSTest-Pakete und für `dotnet test` unter MTP nicht nötig. Ohne
+`Microsoft.NET.Test.Sdk` muss `<OutputType>Exe</OutputType>` explizit gesetzt
+werden.
 
 ## Code-Qualität
 
