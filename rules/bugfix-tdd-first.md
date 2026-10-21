@@ -68,11 +68,11 @@ Plan die echten Ursachen adressiert und nicht nur die sichtbaren Symptome.
 ## Commit-Format
 
 ```
-[BUGFIX] Kurze Beschreibung des Fixes
+[BUGFIX] Short description of the fix
 
-Ursache: [Was den Bug verursacht hat]
-5-Why: [1-Satz-Zusammenfassung der tiefsten gefundenen Ursache]
-Test: [Name des neuen Testfalls]
+Cause: [what caused the bug]
+5-Why: [one-sentence summary of the deepest cause found]
+Test: [name of the new test case]
 ```
 
 ## Anti-Patterns

@@ -11,14 +11,20 @@ Beschreibung, die das Ergebnis der Analyse nennt — nicht das Symptom.
 
 ```
 # ❌ FALSCH
-[BUGFIX] Durchschnitt funktioniert nicht
+[BUGFIX] Average does not work
 
 # ✅ RICHTIG
-[BUGFIX] [#42] Durchschnittsberechnung behandelt leere Messreihen, statt durch null zu teilen
+[BUGFIX] [#42] Average calculation handles empty series instead of dividing by zero
 ```
 
 Weitere Zeilen (Body) erklären bei Bedarf das Warum. Für Bugfixes gilt
-zusätzlich das Format aus `bugfix-tdd-first.md` (Ursache, 5-Why, Test).
+zusätzlich das Format aus `bugfix-tdd-first.md` (Cause, 5-Why, Test).
+
+## Sprache
+
+Commit-Nachrichten (Betreff und Body) werden **immer auf Englisch** verfasst,
+auch wenn Doku, Code-Kommentare oder die Unterhaltung deutsch sind. Bereits
+vorhandene deutsche Commits werden nicht umgeschrieben.
 
 ## Typen
 

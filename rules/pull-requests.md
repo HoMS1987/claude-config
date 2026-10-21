@@ -9,6 +9,12 @@ fertige Releases.
 existiert (`git ls-remote --heads origin dev`). Falls ja → Base `dev`.
 Falls nicht → Default-Branch des Repositories.
 
+## Sprache
+
+Titel und Beschreibung von PRs werden **immer auf Englisch** verfasst, ebenso
+Review-Kommentare in PRs. Die Prinzipien aus `adler-communication-style.md`
+gelten sinngemäß auch auf Englisch.
+
 ## Titel und Beschreibung
 
 Titel und Beschreibung fassen den **gesamten Branch-Diff** gegenüber dem
