@@ -23,9 +23,10 @@ Claude Code lädt jede Datei aus `~/.claude/rules/` in jedem Projekt. Dateien mi
 | `adr-architecture-decisions.md` | Architekturentscheidungen als ADR in `docs/adrs/` |
 | `adler-communication-style.md` | Ton für Texte, die andere lesen (PRs, Issues, Doku) |
 | `utf8-umlaut-handling.md` | Umlaute immer direkt schreiben, nie automatisch ersetzen |
-| `commit-conventions.md` | `[TYPE] [#Issue] Beschreibung`, Branch-Namen, Squash-Merge |
+| `commit-conventions.md` | `[TYPE] [#Issue] Description` auf Englisch, Branch-Namen, Squash-Merge |
+| `code-comments.md` | Kommentare im Code immer auf Englisch, auch Doc-Kommentare und Tests |
 | `git-identity.md` | Identität pro Repository, nie Klarname oder private Adresse aus der globalen Git-Konfiguration |
-| `pull-requests.md` | PRs gegen `dev`, Beschreibung über den ganzen Branch |
+| `pull-requests.md` | PRs gegen `dev` auf Englisch, Beschreibung über den ganzen Branch |
 | `subagent-tool-discipline.md` | Sub-Agents vorhandene Skills und Tools nennen |
 | `documentation-standards.md` | Markdown- und Doku-Konventionen (nur `*.md`, `docs/`) |
 | `dotnet-csharp-conventions.md` | C#-Sprachfeatures, Test-Stack (nur `*.cs`, `*.csproj`, `*.sln`) |
