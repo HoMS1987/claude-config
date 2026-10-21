@@ -22,5 +22,6 @@ Das gilt auch, wenn Doku, Oberfläche oder die Unterhaltung deutsch sind.
 
 - Texte für Nutzer (Oberfläche, Übersetzungsdateien, Fehlermeldungen für Endnutzer) folgen der
   Sprache des Produkts.
-- Dokumentation in Markdown (README, ADRs, `docs/`) folgt der Sprache des Projekts.
+- Dokumentation in Markdown (ADRs, `docs/`) folgt der Sprache des Projekts. Ausnahme: das README
+  von GitHub-Repositories ist immer Englisch (siehe `documentation-standards.md`).
 - Bezeichner sind ohnehin englisch.

@@ -28,7 +28,7 @@ Claude Code lädt jede Datei aus `~/.claude/rules/` in jedem Projekt. Dateien mi
 | `git-identity.md` | Identität pro Repository, nie Klarname oder private Adresse aus der globalen Git-Konfiguration |
 | `pull-requests.md` | PRs gegen `dev` auf Englisch, Beschreibung über den ganzen Branch |
 | `subagent-tool-discipline.md` | Sub-Agents vorhandene Skills und Tools nennen |
-| `documentation-standards.md` | Markdown- und Doku-Konventionen (nur `*.md`, `docs/`) |
+| `documentation-standards.md` | Markdown- und Doku-Konventionen, README auf GitHub immer Englisch (nur `*.md`, `docs/`) |
 | `dotnet-csharp-conventions.md` | C#-Sprachfeatures, Test-Stack (nur `*.cs`, `*.csproj`, `*.sln`) |
 | `dotnet-core-principles.md` | SOLID, Clean Architecture, TDD, Review-Checkliste (nur .NET-Dateien) |
 
