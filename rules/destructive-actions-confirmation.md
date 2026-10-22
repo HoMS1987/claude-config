@@ -1,8 +1,8 @@
-# Destruktive Aktionen: IMMER Bestätigung einholen
+# Destruktive Aktionen: immer Bestätigung einholen
 
-## KRITISCHE REGEL - NIEMALS BRECHEN
-
-**BEVOR** destruktive Aktionen ausgeführt werden, **MUSS IMMER** eine explizite Bestätigung vom Benutzer eingeholt werden. **KEINE AUSNAHMEN.**
+Vor jeder destruktiven Aktion **immer** ausdrücklich nachfragen und auf ein „ja“ warten.
+**Keine Ausnahmen**, auch nicht für „offensichtlich“ temporäre Dateien, Build-Artefakte, Caches
+oder Dateien, die „sowieso neu generiert werden“.
 
 ## Betroffene Aktionen
 
@@ -15,6 +15,14 @@
 | Datenbank | `DROP`, `DELETE`, `TRUNCATE` |
 | Überschreiben | Dateien überschreiben ohne Backup, auch durch ein Skript, das sie neu erzeugt |
 | Prozesse | `kill -9`, `pkill`, Prozesse beenden |
+
+Ist unklar, ob eine Aktion destruktiv ist: fragen.
+
+## Vorgehen
+
+1. Beschreiben, was gelöscht oder geändert wird, und die betroffenen Dateien/Ordner auflisten
+2. Fragen: „Soll ich [Aktion] ausführen?“, wo sinnvoll mit Alternative oder Backup-Option
+3. Erst nach „ja“ ausführen
 
 ## Von Hand bearbeitete Dateien neu erzeugen
 
@@ -30,67 +38,3 @@ sein Inhalt stammt vom letzten Generieren.
 
 Nicht darauf verlassen, dass Papierkorb, Schattenkopien, Dateiversionsverlauf oder OneDrive die alte
 Fassung noch haben.
-
-## Verbotene Vorgehensweise
-
-```bash
-# ❌ NIEMALS so:
-rm -rf /path/to/folder
-
-# ❌ NIEMALS so:
-git clean -fd
-
-# ❌ NIEMALS so:
-git checkout -- .
-```
-
-## Korrekte Vorgehensweise
-
-```markdown
-# ✅ IMMER so:
-
-1. Beschreibe was gelöscht/geändert werden soll
-2. Liste die betroffenen Dateien/Ordner auf
-3. Frage explizit: "Soll ich [Aktion] ausführen? (ja/nein)"
-4. Warte auf Bestätigung
-5. Erst NACH "ja" die Aktion ausführen
-```
-
-## Beispiel-Dialog
-
-```
-Claude: "Folgende Ordner würden gelöscht werden:
-- src/Legacy/
-- tools/old-scripts/
-- docs/drafts/
-
-Soll ich diese drei Ordner löschen?"
-
-User: "ja"
-
-Claude: [führt rm -rf aus]
-```
-
-## Ausnahmen
-
-**KEINE.** Auch nicht bei:
-- "offensichtlich" temporären Dateien
-- Build-Artefakten
-- Cache-Ordnern
-- Dateien die "sowieso neu generiert werden"
-
-**IMMER FRAGEN.**
-
-## Warum?
-
-- Gelöschte Daten sind oft unwiederbringlich
-- Untracked Git-Dateien haben kein Backup
-- Der Benutzer kennt den Kontext besser
-- Vorsicht ist besser als Datenverlust
-
-## Bei Unsicherheit
-
-Wenn unklar ist ob eine Aktion destruktiv ist:
-1. Lieber einmal zu viel fragen
-2. Alternativen vorschlagen (z.B. `.gitignore` statt löschen)
-3. Backup-Option anbieten

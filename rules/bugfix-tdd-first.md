@@ -1,28 +1,20 @@
-# Bugfix-Workflow: TDD-First ist PFLICHT
+# Bugfix-Workflow: TDD-First ist Pflicht
 
-## KRITISCHE REGEL - IMMER EINHALTEN
-
-Bei **JEDEM Bugfix** MUSS der TDD-Workflow eingehalten werden. Keine Ausnahmen.
-
-## Pflicht-Reihenfolge
+Bei **jedem** Bugfix gilt diese Reihenfolge. Keine Ausnahmen, auch nicht für „triviale“ Einzeiler.
 
 ```
-1. Bug reproduzieren (verstehen was passiert)
-2. 5-Why-Analyse zur Root Cause (siehe unten) — PFLICHT bei jedem Bug
-3. Failing Test schreiben (RED) — beweist den Bug
-4. Fix implementieren (GREEN) — Test muss grün werden
-5. Refactoring (REFACTOR) — optional, Tests bleiben grün
-6. Commit: Test + Fix ZUSAMMEN, 5-Why-Kette im Commit-Body
+1. Bug reproduzieren
+2. 5-Why-Analyse zur Root Cause
+3. Failing Test schreiben (RED), der den Bug beweist
+4. Fix implementieren (GREEN)
+5. Refactoring (optional, Tests bleiben grün)
+6. Commit: Test und Fix zusammen, 5-Why-Kette im Commit-Body
 ```
 
-## 5-Why-Analyse zur Root Cause (PFLICHT)
+## 5-Why-Analyse
 
-Vor jedem Fix wird die Ursache systematisch mit **5 aufeinanderfolgenden
-Warum-Fragen** zurückverfolgt. Ziel: nicht das Symptom behandeln, sondern
-die eigentliche Ursache finden — die oft eine Ebene über dem ersten
-Erklärungsversuch liegt.
-
-**Beispiel:**
+Vor jedem Fix die Ursache mit aufeinanderfolgenden Warum-Fragen zurückverfolgen. Ziel ist die
+eigentliche Ursache, nicht das Symptom.
 
 ```
 Beobachtung: TOC enthält Heading aus einem Code-Block.
@@ -37,33 +29,12 @@ Beobachtung: TOC enthält Heading aus einem Code-Block.
 → Fix umfasst: Parser-Library + Test-Projekt + Regressionstests.
 ```
 
-**Regeln:**
-
-- **Fünf ist ein Richtwert**, keine starre Zahl — manche Bugs brauchen
-  drei Why-Fragen, andere sieben. Wichtig ist: weitergraben, solange die
-  Antwort noch technisch ist, und erst stoppen, wenn sie auf eine
-  Prozess- oder Struktur-Ursache zeigt.
-- **Die 5-Why-Kette wird dokumentiert** — entweder im Commit-Body, in
-  der Analyse oder im Issue- bzw. PR-Kommentar zum Bug.
-- **Mehrere Ursachen sind erlaubt**: manchmal endet die Kette in zwei
-  Pfaden (z.B. „fehlender Test" **und** „fehlende Validierung"). Beide
-  werden gefixt.
-- **Der Fix adressiert die tiefste gefundene Ursache**, nicht das oberste
-  Symptom. Im Beispiel oben: nicht „Regex austauschen", sondern
-  „Test-Projekt einrichten + Parser einführen".
-
-**Auch bei Analysen von Legacy-Code** und bei Review-Findings der
-Stufe CRITICAL/WARNING wird die 5-Why-Methodik angewendet, damit der
-Plan die echten Ursachen adressiert und nicht nur die sichtbaren Symptome.
-
-## Warum?
-
-| Ohne TDD-First | Mit TDD-First |
-|-----------------|---------------|
-| Fix ohne Beweis dass Bug existierte | Test beweist den Bug existierte |
-| Regression kann jederzeit wiederkommen | Regression wird sofort durch Test erkannt |
-| Kein Vertrauen dass Fix korrekt ist | Grüner Test beweist Korrektheit |
-| Review kann Bug nicht nachvollziehen | Test dokumentiert das Fehlerszenario |
+- **Fünf ist ein Richtwert.** Weitergraben, solange die Antwort technisch ist; erst stoppen, wenn
+  sie auf eine Prozess- oder Struktur-Ursache zeigt.
+- **Mehrere Ursachen sind erlaubt.** Endet die Kette in zwei Pfaden, werden beide gefixt.
+- **Der Fix adressiert die tiefste Ursache**, nicht das oberste Symptom.
+- **Die Kette wird dokumentiert**: im Commit-Body, in der Analyse oder im Issue-/PR-Kommentar.
+- Gilt auch für Analysen von Legacy-Code und für Review-Findings der Stufe CRITICAL/WARNING.
 
 ## Commit-Format
 
@@ -75,15 +46,12 @@ Cause: [what caused the bug]
 Test: [name of the new test case]
 ```
 
-## Anti-Patterns
+## Verboten
 
-- **NIEMALS** einen Fix committen ohne zugehörigen Test
-- **NIEMALS** den Test nach dem Fix schreiben (dann ist er kein Beweis)
-- **NIEMALS** "triviale" Bugs als Ausnahme betrachten — auch Einzeiler-Fixes brauchen Tests
-- **NIEMALS** bestehende Tests anpassen damit der Bug "verschwindet"
+- Test nach dem Fix schreiben (dann beweist er nichts)
+- Bestehende Tests anpassen, damit der Bug „verschwindet“
 
 ## Ausnahme
 
-Nur wenn ein Test technisch nicht möglich ist (z.B. reiner UI-Bug, Infrastruktur-Problem):
-1. Dokumentiere WARUM kein Test möglich ist
-2. Frage den User ob der Fix ohne Test akzeptabel ist
+Ist ein Test technisch nicht möglich (z. B. reiner UI-Bug, Infrastruktur-Problem): begründen, warum,
+und fragen, ob der Fix ohne Test akzeptabel ist.
