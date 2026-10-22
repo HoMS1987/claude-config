@@ -74,6 +74,14 @@ It can be run any number of times.
 | `-ClaudeDir <path>` | Target directory other than `~/.claude` |
 | `-SkipDangerousModePrompt yes\|no\|ask` | Answer the question in advance. The default is `ask`; without an interactive console the existing value stays unchanged. |
 
+## Tests
+
+```powershell
+./tests/install.Tests.ps1
+```
+
+Runs `install.ps1` against temporary directories and exits with code 1 if a test fails. No test framework is required.
+
 ## Notes
 
 - `CLAUDE.md` replaces an existing file of the same name (after a backup). If you have your own rules, merge the contents by hand.

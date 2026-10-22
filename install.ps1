@@ -81,12 +81,14 @@ if ($choice -eq 'ask') {
 if ($choice -eq 'yes') { $current[$key] = $true }
 elseif ($choice -eq 'no') { $current.Remove($key) }
 
-$new = $current | ConvertTo-Json -Depth 20
-if ($new.Trim() -eq $old.Trim()) {
+# Claude Code schreibt settings.json mit LF. Das Skript tut dasselbe und vergleicht ohne Rücksicht
+# auf Zeilenenden, sonst gilt jede von Claude Code geschriebene Datei als geändert.
+$new = ($current | ConvertTo-Json -Depth 20) -replace "`r`n", "`n"
+if ($new.Trim() -eq ($old -replace "`r`n", "`n").Trim()) {
     Write-Host '= settings.json (unverändert)'
 } else {
     if (Test-Path $dst) { Backup-File $dst }
-    Set-Content $dst $new
+    Set-Content $dst "$new`n" -NoNewline
     Write-Host '+ settings.json'
 }
 
