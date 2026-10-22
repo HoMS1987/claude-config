@@ -1,86 +1,87 @@
 # claude-config
 
-Persönliche Konfiguration für [Claude Code](https://claude.com/claude-code) unter Windows: globale Regeln, Einstellungen und eine eigene Statusleiste.
+Personal configuration for [Claude Code](https://claude.com/claude-code) on Windows: global rules, settings and a custom status line.
 
-## Inhalt
+## Contents
 
-| Datei | Zweck |
-|-------|-------|
-| `CLAUDE.md` | Globale Regeln, die in jedem Projekt gelten (auf Deutsch) |
-| `rules/` | Weitere Regeln, je Thema eine Datei (siehe unten) |
-| `settings.json` | Einstellungen und aktivierte Plugins |
-| `statusline.ps1` | Statusleiste |
-| `install.ps1` | Installiert alles nach `~/.claude` |
+| File | Purpose |
+|------|---------|
+| `CLAUDE.md` | Global rules that apply in every project (in German) |
+| `rules/` | Further rules, one file per topic (see below) |
+| `settings.json` | Settings and enabled plugins |
+| `statusline.ps1` | Status line |
+| `install.ps1` | Installs everything into `~/.claude` |
 
-## Regeln
+## Rules
 
-Claude Code lädt jede Datei aus `~/.claude/rules/` in jedem Projekt. Dateien mit `paths:` im Kopf gelten nur für passende Dateien.
+Claude Code loads every file in `~/.claude/rules/` in every project. Files with `paths:` in their front matter only apply to matching files. The rules themselves are written in German.
 
-| Datei | Inhalt |
-|-------|--------|
-| `destructive-actions-confirmation.md` | Vor Löschen, `git reset --hard`, Force-Push usw. immer nachfragen |
-| `bugfix-tdd-first.md` | Bugfix nur mit 5-Why-Analyse und zuerst rotem Test |
-| `adr-architecture-decisions.md` | Architekturentscheidungen als ADR in `docs/adrs/` |
-| `adler-communication-style.md` | Ton für Texte, die andere lesen (PRs, Issues, Doku) |
-| `utf8-umlaut-handling.md` | Umlaute immer direkt schreiben, nie automatisch ersetzen |
-| `commit-conventions.md` | `[TYPE] [#Issue] Description` auf Englisch, Branch-Namen, Squash-Merge |
-| `code-comments.md` | Kommentare im Code immer auf Englisch, auch Doc-Kommentare und Tests |
-| `git-identity.md` | Identität pro Repository, nie Klarname oder private Adresse aus der globalen Git-Konfiguration |
-| `pull-requests.md` | PRs gegen `dev` auf Englisch, Beschreibung über den ganzen Branch |
-| `subagent-tool-discipline.md` | Sub-Agents vorhandene Skills und Tools nennen |
-| `documentation-standards.md` | Markdown- und Doku-Konventionen, README auf GitHub immer Englisch (nur `*.md`, `docs/`) |
-| `dotnet-csharp-conventions.md` | C#-Sprachfeatures, Test-Stack (nur `*.cs`, `*.csproj`, `*.sln`) |
-| `dotnet-core-principles.md` | SOLID, Clean Architecture, TDD, Review-Checkliste (nur .NET-Dateien) |
+| File | Content |
+|------|---------|
+| `destructive-actions-confirmation.md` | Always ask before deleting, `git reset --hard`, force pushes etc.; back up hand-edited files before regenerating them |
+| `software-installation.md` | Install software only after asking, stating whether it adds autostart entries or services |
+| `bugfix-tdd-first.md` | Bug fixes only with a 5-why analysis and a failing test first |
+| `adr-architecture-decisions.md` | Architecture decisions as ADRs in `docs/adrs/` |
+| `adler-communication-style.md` | Tone for texts other people read (PRs, issues, docs) |
+| `utf8-umlaut-handling.md` | Always write umlauts directly, never replace them automatically |
+| `commit-conventions.md` | `[TYPE] [#Issue] Description` in English, branch names, squash merge |
+| `code-comments.md` | Code comments always in English, including doc comments and tests |
+| `git-identity.md` | Git identity per repository, never the real name or a private address from the global Git config |
+| `pull-requests.md` | PRs against `dev` in English, description covers the whole branch |
+| `subagent-tool-discipline.md` | Tell sub-agents which skills and tools to use |
+| `documentation-standards.md` | Markdown and documentation conventions, README on GitHub always in English, documents in third-party repositories in the repository's language (only `*.md`, `docs/`) |
+| `dotnet-csharp-conventions.md` | C# language features, test stack (only `*.cs`, `*.csproj`, `*.sln`) |
+| `dotnet-core-principles.md` | SOLID, Clean Architecture, TDD, review checklist (only .NET files) |
 
-## Statusleiste
+## Status line
 
 ```
-~\projekte\meinrepo | ⎇ main* ↑2 ↓1 | ███░░░░░░░ 33% | Opus 5.5 | 5h 22% ↻ 19:00 7d 11%
+~\projects\myrepo | ⎇ main* ↑2 ↓1 | ███░░░░░░░ 33% | Opus 5.5 | 5h 22% ↻ 19:00 7d 11%
 ```
 
-- **Ordner:** Home wird zu `~`, Pfade über 40 Zeichen werden auf die letzten zwei Ebenen gekürzt.
-- **Git:** Branch (bei detached HEAD der kurze Commit-Hash), `*` bei uncommitteten Änderungen, `↑`/`↓` für Commits vor/hinter dem Upstream. Erscheint nur in einem Repository.
-- **Kontextfenster:** Füllstand, grün unter 50 %, gelb ab 50 %, rot ab 80 %.
-- **Modell:** das aktuell aktive Modell.
-- **Nutzungslimits:** Verbrauch des 5-Stunden- und des Wochenlimits sowie die Uhrzeit, zu der das 5-Stunden-Fenster zurückgesetzt wird. Erscheint nur, wenn Claude Code die Werte liefert (Abo).
+- **Folder:** the home directory becomes `~`; paths longer than 40 characters are shortened to the last two levels.
+- **Git:** branch (the short commit hash on a detached HEAD), `*` for uncommitted changes, `↑`/`↓` for commits ahead of/behind the upstream. Only shown inside a repository.
+- **Context window:** usage, green below 50 %, yellow from 50 %, red from 80 %.
+- **Model:** the currently active model.
+- **Usage limits:** usage of the 5-hour and the weekly limit, plus the time at which the 5-hour window resets. Only shown when Claude Code provides the values (subscription).
 
-## Voraussetzungen
+## Requirements
 
-- Windows mit [PowerShell 7](https://learn.microsoft.com/powershell/) (`pwsh`)
-- Git im `PATH`
-- Ein Terminal mit UTF-8-fähiger Schrift (z. B. Windows Terminal)
+- Windows with [PowerShell 7](https://learn.microsoft.com/powershell/) (`pwsh`)
+- Git in `PATH`
+- A terminal with a UTF-8 capable font (e.g. Windows Terminal)
 
 ## Installation
 
 ```powershell
-git clone <URL dieses Repositories>
+git clone <URL of this repository>
 cd claude-config
 ./install.ps1
 ```
 
-Das Skript
+The script
 
-- bricht sofort ab, wenn `~/.claude/.no-claude-config-install` existiert (siehe unten),
-- kopiert `CLAUDE.md` und `statusline.ps1` nach `~/.claude` und die Regeln nach `~/.claude/rules`,
-- mischt die Schlüssel aus `settings.json` in die vorhandene `~/.claude/settings.json` ein (Werte aus dem Repository gewinnen, alle übrigen Einstellungen bleiben erhalten),
-- fragt, ob der Warnhinweis beim Start des Modus „bypass permissions“ dauerhaft übersprungen werden soll (`skipDangerousModePermissionPrompt`),
-- sichert jede Datei, die es ändert, vorher als `*.bak-<Zeitstempel>`.
+- aborts immediately if `~/.claude/.no-claude-config-install` exists (see below),
+- copies `CLAUDE.md` and `statusline.ps1` into `~/.claude` and the rules into `~/.claude/rules`,
+- merges the keys from `settings.json` into the existing `~/.claude/settings.json` (values from the repository win, all other settings are kept),
+- asks whether the warning shown when starting “bypass permissions” mode should be skipped permanently (`skipDangerousModePermissionPrompt`),
+- backs up every file it changes as `*.bak-<timestamp>` first.
 
-Es kann beliebig oft ausgeführt werden.
+It can be run any number of times.
 
-| Parameter | Bedeutung |
-|-----------|-----------|
-| `-ClaudeDir <Pfad>` | Anderes Zielverzeichnis als `~/.claude` |
-| `-SkipDangerousModePrompt yes\|no\|ask` | Die Abfrage vorab beantworten. Standard ist `ask`; ohne interaktive Konsole bleibt der vorhandene Wert unverändert. |
+| Parameter | Meaning |
+|-----------|---------|
+| `-ClaudeDir <path>` | Target directory other than `~/.claude` |
+| `-SkipDangerousModePrompt yes\|no\|ask` | Answer the question in advance. The default is `ask`; without an interactive console the existing value stays unchanged. |
 
-## Hinweise
+## Notes
 
-- `CLAUDE.md` überschreibt eine vorhandene Datei gleichen Namens (nach Sicherung). Wer eigene Regeln hat, sollte die Inhalte von Hand zusammenführen.
-- In `~/.claude/rules` werden nur gleichnamige Dateien ersetzt (nach Sicherung). Andere Regeln dort bleiben unberührt.
-- Rechner, deren Konfiguration das Skript nie anfassen soll, bekommen eine leere Datei `~/.claude/.no-claude-config-install`. Dann bricht das Skript ab, bevor es etwas ändert:
+- `CLAUDE.md` replaces an existing file of the same name (after a backup). If you have your own rules, merge the contents by hand.
+- In `~/.claude/rules` only files with the same name are replaced (after a backup). Other rules there stay untouched.
+- Machines whose configuration the script must never touch get an empty file `~/.claude/.no-claude-config-install`. The script then aborts before changing anything:
 
   ```powershell
   New-Item -ItemType File ~/.claude/.no-claude-config-install
   ```
-- Die Plugins in `settings.json` stammen aus dem offiziellen Marketplace und werden von Claude Code beim nächsten Start nachgeladen.
-- Das Repository enthält bewusst keine Anmeldedaten, Gesprächsverläufe oder Memory-Dateien.
+- The plugins in `settings.json` come from the official marketplace; Claude Code loads them on the next start.
+- The repository deliberately contains no credentials, conversation histories or memory files.

@@ -13,8 +13,23 @@
 | Git destruktiv | `git clean`, `git reset --hard`, `git checkout -- .`, `git restore .` |
 | Git History | `git push --force`, `git rebase` (auf shared branches) |
 | Datenbank | `DROP`, `DELETE`, `TRUNCATE` |
-| Überschreiben | Dateien überschreiben ohne Backup |
+| Überschreiben | Dateien überschreiben ohne Backup, auch durch ein Skript, das sie neu erzeugt |
 | Prozesse | `kill -9`, `pkill`, Prozesse beenden |
+
+## Von Hand bearbeitete Dateien neu erzeugen
+
+Ergebnisdateien wie `.pptx`, `.docx` oder `.xlsx` bearbeitet der Benutzer oft zwischen zwei Anfragen
+direkt in Office. Ein Skript, das die Datei neu erzeugt, überschreibt diese Änderungen still, denn
+sein Inhalt stammt vom letzten Generieren.
+
+1. Vor dem Neuerzeugen die vorhandene Datei immer mit Zeitstempel sichern
+   (`<name>.backup-YYYYMMDD-HHMMSS.<ext>`). Das gilt auch ohne Rückfrage.
+2. Prüfen, ob die Datei seit dem letzten Generieren geändert wurde (Änderungszeit, Inhalt vergleichen).
+3. Wurde sie geändert: nicht neu erzeugen, sondern nachfragen. Die Änderungen entweder ins Skript
+   übernehmen oder die Datei gezielt bearbeiten statt neu zu erzeugen.
+
+Nicht darauf verlassen, dass Papierkorb, Schattenkopien, Dateiversionsverlauf oder OneDrive die alte
+Fassung noch haben.
 
 ## Verbotene Vorgehensweise
 
