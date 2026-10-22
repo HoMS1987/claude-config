@@ -24,7 +24,8 @@ zusätzlich das Format aus `bugfix-tdd-first.md` (Cause, 5-Why, Test).
 
 Commit-Nachrichten (Betreff und Body) werden **immer auf Englisch** verfasst,
 auch wenn Doku, Code-Kommentare oder die Unterhaltung deutsch sind. Bereits
-vorhandene deutsche Commits werden nicht umgeschrieben.
+vorhandene deutsche Commits werden nicht umgeschrieben. In fremden Repositories
+gilt deren Sprache (siehe `third-party-repositories.md`).
 
 ## Typen
 

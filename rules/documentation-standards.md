@@ -17,12 +17,7 @@ paths:
   Doku (`docs/`, ADRs) oder die Oberfläche deutsch ist.
 - Ein bestehendes deutsches README wird beim nächsten Anfassen vollständig übersetzt, nicht gemischt.
 
-## Fremde Repositories: Sprache des Repositories
-
-- In fremden Repositories (Upstream, Projekte anderer) sind Dokumente **immer in der Sprache des
-  Repositories** geschrieben: README, `docs/`, ADRs, Changelogs und alle übrigen Markdown-Dateien.
-- Die Sprache ergibt sich aus der vorhandenen Doku. Ist sie gemischt oder unklar: nachfragen.
-- Das geht allen anderen Sprachregeln vor, auch „README auf GitHub: immer Englisch“.
+- In fremden Repositories gilt stattdessen deren Sprache (siehe `third-party-repositories.md`).
 
 ## Code-Dokumentation
 

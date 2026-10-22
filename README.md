@@ -27,9 +27,11 @@ Claude Code loads every file in `~/.claude/rules/` in every project. Files with 
 | `commit-conventions.md` | `[TYPE] [#Issue] Description` in English, branch names, squash merge |
 | `code-comments.md` | Code comments always in English, including doc comments and tests |
 | `git-identity.md` | Git identity per repository, never the real name or a private address from the global Git config |
+| `third-party-repositories.md` | Third-party repositories: their language for everything, no AI attribution unless their policy asks for it |
 | `pull-requests.md` | PRs against `dev` in English, description covers the whole branch |
+| `git-bash-path-conversion.md` | `MSYS_NO_PATHCONV=1` for `kubectl`, `docker`, `ssh` etc. with remote paths from Git Bash |
 | `subagent-tool-discipline.md` | Tell sub-agents which skills and tools to use |
-| `documentation-standards.md` | Markdown and documentation conventions, README on GitHub always in English, documents in third-party repositories in the repository's language (only `*.md`, `docs/`) |
+| `documentation-standards.md` | Markdown and documentation conventions, README on GitHub always in English (only `*.md`, `docs/`) |
 | `dotnet-csharp-conventions.md` | C# language features, test stack (only `*.cs`, `*.csproj`, `*.sln`) |
 | `dotnet-core-principles.md` | SOLID, Clean Architecture, TDD, review checklist (only .NET files) |
 

@@ -13,7 +13,8 @@ Falls nicht → Default-Branch des Repositories.
 
 Titel und Beschreibung von PRs werden **immer auf Englisch** verfasst, ebenso
 Review-Kommentare in PRs. Die Prinzipien aus `adler-communication-style.md`
-gelten sinngemäß auch auf Englisch.
+gelten sinngemäß auch auf Englisch. In fremden Repositories gilt deren Sprache
+(siehe `third-party-repositories.md`).
 
 ## Titel und Beschreibung
 
